@@ -1,0 +1,24 @@
+{
+  "name": "hackmd-desktop",
+  "version": "0.0.1",
+  "description": "HackMD desktop client",
+  "main": "main.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development electron .",
+    "start": "cross-env NODE_ENV=production electron .",
+    "dist": "build -mwl"
+  },
+  "author": "Yukai Huang <yukaihuangtw@gmail.com> (https://yukaii.tw)",
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^3.1.4",
+    "electron": "^1.4.15",
+    "electron-builder": "^11.4.4"
+  },
+  "build": {
+    "appId": "com.hackmd.desktop",
+    "mac": {
+      "category": "public.app-category.productivity"
+    }
+  }
+}

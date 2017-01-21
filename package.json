@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
     "start": "cross-env NODE_ENV=production electron .",
-    "dist": "build -mwl"
+    "dist": "build -mwl",
+    "dist:linux": "build --linux deb"
   },
   "author": "Yukai Huang <yukaihuangtw@gmail.com> (https://yukaii.tw)",
   "license": "MIT",

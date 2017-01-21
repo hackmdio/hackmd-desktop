@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HackMD</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			html, body {
+				margin: 0;
+				height: 100%;
+		    background-color: #f8f8f8;
+				overflow: hidden;
+				font-family: Arial, Helvetica, sans-serif;
+			}
+
+			body {
+				display: flex;
+				flex-direction: column;
+			}
+
+			webview {
+				display: flex;
+				flex: 1;
+			}
+
+			navbar {
+				height: 23px;
+				align-items: center;
+				width: 100%;
+				display: flex;
+				-webkit-app-region: drag;
+				padding-left: 75px;
+		    background-color: #f8f8f8;
+				color: #484848;
+			}
+
+			#navbar-container {
+				font-size: 0.9em;
+				font-family: "Courier New", Courier, monospace;
+				display: flex;
+				flex: 1;
+				justify-content: space-between;
+				-webkit-user-select: none;
+				user-select: none;
+			}
+
+			navbar.dark {
+				background-color: #333333;
+				color: white;
+			}
+
+			navbar.dark .control-buttons > *:hover {
+				color: white;
+			}
+
+			#navbar-container .control-buttons {
+				flex: 1;
+				display: flex;
+			}
+
+			#navbar-container .control-buttons > * {
+				margin: 0 .3em;
+				cursor: pointer;
+				-webkit-user-select: none;
+				height: 23px;
+				display: flex;
+				align-items: center;
+			}
+
+			#navbar-container .control-buttons > *:hover {
+				color: #c1c1c1;
+			}
+		</style>
+	</head>
+	<body>
+		<navbar>
+			<div id="navbar-container">
+				<div class="control-buttons">
+					<div class="home">HOME</div>
+					<div class="refresh">REFRESH</div>
+					<div class="navigate-back" style="margin: 0 1em;">&#x3C;</div>
+					<div class="navigate-foward">&#x3E;</div>
+				</div>
+				<div class="control-buttons" style="flex: 2">
+					<div class="title"></div>
+				</div>
+			</div>
+		</navbar>
+		<script src="renderer.js"></script>
+	</body>
+</html>

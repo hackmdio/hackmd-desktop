@@ -2,7 +2,7 @@
 
 An electron wrapped desktop client for HackMD :tada:
 
-![editor](./docs/images/editor.png)
+![editor](./docs/images/editor.png?)
 
 ## Tools
 

@@ -1,4 +1,8 @@
-# HackMD Desktop Client
+# HackMD Desktop
+
+An electron wrapped desktop client for HackMD :tada:
+
+![editor](./docs/images/editor.png)
 
 ## Tools
 

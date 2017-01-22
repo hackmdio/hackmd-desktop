@@ -1,20 +1,19 @@
 const {BrowserWindow} = require('electron');
 const os = require('os');
 
+const isMac = os.platform() === 'darwin';
+
 const winOption = {
 	width: 1100,
 	height: 768,
 	minWidth: 522,
-	minHeight: 400
+	minHeight: 400,
+	frame: isMac
 }
-
-const isDarwin = os.platform() === 'darwin';
 
 function createWindow (opts={}) {
 	const win = new BrowserWindow(
-		(isDarwin
-			? Object.assign({}, winOption, {titleBarStyle: 'hidden'})
-			: winOption)
+		Object.assign({}, winOption, {titleBarStyle: 'hidden'})
 	);
 
 	if (opts.hasOwnProperty('url')) {

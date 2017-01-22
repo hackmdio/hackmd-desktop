@@ -1,6 +1,7 @@
 const fs = require('electron').remote.require('fs');
 const os = require('electron').remote.require('os');
 const path = require('electron').remote.require('path');
+const {ipcRenderer} = require('electron');
 const {BrowserWindow} = require('electron').remote;
 const {clipboard} = require('electron');
 
@@ -27,6 +28,7 @@ onload = () => {
 	webview.addEventListener('dom-ready', function(){
 		// set webview title
 		document.querySelector('#navbar-container .title').innerHTML = webview.getTitle();
+		document.querySelector('title').innerHTML = webview.getTitle();
 
 		// set dark theme if in home page
 		if (webview.getURL().split('?')[0].split('#')[0].match(/https:\/\/hackmd.io\/$/)) {
@@ -62,6 +64,11 @@ onload = () => {
 		}
 
 		// webview.openDevTools();
+	});
+
+	/* handle ipc actions */
+	ipcRenderer.on('web:refresh', (event, message) => {
+		webview.loadURL(webview.getURL());
 	});
 
 	/* handle _target=blank pages */

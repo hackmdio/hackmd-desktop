@@ -1,5 +1,6 @@
 {
   "name": "hackmd-desktop",
+  "productName": "HackMD Desktop",
   "version": "0.0.1",
   "description": "HackMD desktop client",
   "main": "main.js",

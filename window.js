@@ -1,5 +1,5 @@
-const {BrowserWindow} = require('electron');
-const os = require('os');
+const BrowserWindow = require('electron').BrowserWindow || require('electron').remote.BrowserWindow;
+const os = require('os') || require('electron').remote.require('os');
 
 const isMac = os.platform() === 'darwin';
 

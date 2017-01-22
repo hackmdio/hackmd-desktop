@@ -4,10 +4,11 @@ const path = require('electron').remote.require('path');
 const {ipcRenderer} = require('electron');
 const {BrowserWindow} = require('electron').remote;
 const {clipboard} = require('electron');
+const { createWindow } = require('./window');
 
 const SERVER_URL = 'https://hackmd.io';
 
-const isDarwin = os.platform() === 'darwin';
+const isMac = os.platform() === 'darwin';
 
 const winOption = {
 	width: 1024,
@@ -15,6 +16,11 @@ const winOption = {
 }
 
 onload = () => {
+	/* inject mac specific styles */
+	if (isMac) {
+		document.querySelector('navbar').style.paddingLeft = '75px';
+	}
+
 	if (window.location.search !== '') {
 		targetURL = window.location.search.match(/\?target=([^?]+)/)[1];
 	} else {
@@ -73,10 +79,6 @@ onload = () => {
 
 	/* handle _target=blank pages */
 	webview.addEventListener('new-window', (event) => {
-		new BrowserWindow(
-			(isDarwin
-				? Object.assign({}, winOption, {titleBarStyle: 'hidden'})
-				: winOption)
-		).loadURL(`file://${path.join(__dirname, `index.html?target=${event.url}`)}`);
+		createWindow({url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}`});
 	});
 }

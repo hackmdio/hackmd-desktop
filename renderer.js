@@ -38,8 +38,10 @@ onload = () => {
 
 		// set dark theme if in home page
 		if (webview.getURL().split('?')[0].split('#')[0].match(/https:\/\/hackmd.io\/$/)) {
+			document.querySelector('#title-bar').className = 'dark';
 			document.querySelector('navbar').className = 'dark';
 		} else {
+			document.querySelector('#title-bar').className = '';
 			document.querySelector('navbar').className = '';
 		}
 

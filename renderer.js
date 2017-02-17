@@ -1,19 +1,17 @@
-const fs = require('electron').remote.require('fs');
-const os = require('electron').remote.require('os');
-const path = require('electron').remote.require('path');
-const {ipcRenderer} = require('electron');
-const {BrowserWindow} = require('electron').remote;
-const {clipboard} = require('electron');
-const { createWindow } = require('./window');
+const { ipcRenderer, remote, clipboard } = require('electron');
+const { BrowserWindow } = remote;
+
+const fs = remote.require('fs');
+const os = remote.require('os');
+const path = remote.require('path');
+
+const ipcClient = require('./ipc/client');
+
+const menu = require('./menu');
 
 const SERVER_URL = 'https://hackmd.io';
 
 const isMac = os.platform() === 'darwin';
-
-const winOption = {
-	width: 1024,
-	height: 768
-}
 
 onload = () => {
 	/* inject mac specific styles */
@@ -71,6 +69,9 @@ onload = () => {
 			new Notification('URL copied', { title: 'URL copied', body: webview.getURL() });
 		}
 
+		document.querySelector('button#menu-btn').onclick = () => {
+			menu.popup(require('electron').remote.getCurrentWindow());
+		}
 		// webview.openDevTools();
 	});
 
@@ -81,6 +82,6 @@ onload = () => {
 
 	/* handle _target=blank pages */
 	webview.addEventListener('new-window', (event) => {
-		createWindow({url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}`});
+		ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}` });
 	});
 }

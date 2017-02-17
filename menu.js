@@ -1,6 +1,19 @@
-const {app, Menu, BrowserWindow} = require('electron');
-const path = require('path');
-const { createWindow } = require('./window');
+const { ipcMain, ipcRenderer } = require('electron');
+const consumer = require('./ipc/consumer');
+
+const Menu = require('electron').Menu || require('electron').remote.Menu;
+const path = require('path') || require('electron').remote.require('path');
+const os = require('os') || require('electron').remote.require('os');
+
+const isMainProcess = typeof ipcMain !== 'undefined';
+
+function exec(commandId, args={}) {
+  if (isMainProcess) {
+    consumer(commandId, args);
+  } else {
+    ipcRenderer.send('main:command', { commandId, args });
+  }
+}
 
 const template = [
 	{
@@ -10,14 +23,14 @@ const template = [
 				label: 'New File',
 				accelerator: 'CmdOrCtrl+N',
 				click () {
-					createWindow({url: `file://${path.join(__dirname, 'index.html?target=https://hackmd.io/new')}`});
+          exec('createWindow', {url: `file://${path.join(__dirname, 'index.html?target=https://hackmd.io/new')}`})
 				}
 			},
 			{
 				label: 'New Window',
 				accelerator: 'CmdOrCtrl+Shift+N',
 				click () {
-					createWindow({url: `file://${path.join(__dirname, 'index.html')}`});
+          exec('createWindow', {url: `file://${path.join(__dirname, 'index.html')}`})
 				}
 			},
 			{
@@ -70,8 +83,7 @@ const template = [
 				label: 'Refresh',
 				accelerator: 'CmdOrCtrl+R',
 				click () {
-					const win = BrowserWindow.getFocusedWindow();
-					win.webContents.send('web:refresh');
+          exec('refreshWindow');
 				}
 			},
 			{
@@ -90,13 +102,15 @@ const template = [
     submenu: [
       {
         label: 'Learn More',
-        click () { require('electron').shell.openExternal('https://hackmd.io') }
+        click () { 
+          exec('learnMore');
+        }
       }
     ]
   }
 ]
 
-if (process.platform === 'darwin') {
+if (os.platform() === 'darwin') {
   template.unshift({
     label: app.getName(),
     submenu: [

@@ -33,9 +33,6 @@ const template = [
 				click () {
           exec('createWindow', {url: `file://${path.join(__dirname, 'index.html')}`})
 				}
-			},
-			{
-				type: 'separator'
 			}
 		]
 	},

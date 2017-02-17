@@ -71,6 +71,26 @@ onload = () => {
 		document.querySelector('#navbar-container .more-menu').onclick = () => {
 			menu.popup(require('electron').remote.getCurrentWindow());
 		}
+
+		document.querySelector('#navbar-container .minimize-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			win.minimize();
+		}
+
+		document.querySelector('#navbar-container .toggle-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			if (win.isMaximized()) {
+				win.unmaximize();
+			} else {
+				win.maximize();
+			}
+		}
+
+		document.querySelector('#navbar-container .close-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			win.close();
+		}
+
 		// webview.openDevTools();
 	});
 

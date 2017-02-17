@@ -18,6 +18,7 @@ onload = () => {
 	if (isMac) {
 		document.querySelector('navbar').style.paddingLeft = '75px';
 		document.querySelector('#navbar-container .control-buttons:nth-child(3)').style.display = 'none';
+		document.querySelector('#navbar-container .more-menu').style.display = 'none';
 	}
 
 	if (window.location.search !== '') {

@@ -17,6 +17,7 @@ onload = () => {
 	/* inject mac specific styles */
 	if (isMac) {
 		document.querySelector('navbar').style.paddingLeft = '75px';
+		document.querySelector('#navbar-container .control-buttons:nth-child(3)').style.display = 'none';
 	}
 
 	if (window.location.search !== '') {
@@ -36,10 +37,8 @@ onload = () => {
 
 		// set dark theme if in home page
 		if (webview.getURL().split('?')[0].split('#')[0].match(/https:\/\/hackmd.io\/$/)) {
-			document.querySelector('#title-bar').className = 'dark';
 			document.querySelector('navbar').className = 'dark';
 		} else {
-			document.querySelector('#title-bar').className = '';
 			document.querySelector('navbar').className = '';
 		}
 
@@ -69,7 +68,7 @@ onload = () => {
 			new Notification('URL copied', { title: 'URL copied', body: webview.getURL() });
 		}
 
-		document.querySelector('button#menu-btn').onclick = () => {
+		document.querySelector('#navbar-container .more-menu').onclick = () => {
 			menu.popup(require('electron').remote.getCurrentWindow());
 		}
 		// webview.openDevTools();

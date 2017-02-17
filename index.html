@@ -8,24 +8,6 @@
     <link rel="stylesheet" type="text/css" href="./app.css">
   </head>
   <body>
-    <div id="title-bar">
-      <div class="window-control">
-        <button id="menu-btn">
-          <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div class="window-control">
-        <button>
-          <i class="fa fa-minus" aria-hidden="true"></i>
-        </button>
-        <button>
-          <i class="fa fa-square-o" aria-hidden="true"></i>
-        </button>
-        <button>
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      </div>
-    </div>
     <navbar>
       <div id="navbar-container">
         <div class="control-buttons">
@@ -33,9 +15,15 @@
           <div class="refresh">REFRESH</div>
           <div class="navigate-back" style="margin: 0 1em;">&#x3C;</div>
           <div class="navigate-foward">&#x3E;</div>
+          <div class="more-menu">...</div>
         </div>
-        <div class="control-buttons" style="flex: 2">
+        <div class="control-buttons">
           <div class="title"></div>
+        </div>
+        <div class="control-buttons">
+          <div class="minimize-window">-</div>
+          <div class="toggle-window">+</div>
+          <div class="close-window">x</div>
         </div>
       </div>
     </navbar>

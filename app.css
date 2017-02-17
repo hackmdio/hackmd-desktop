@@ -16,27 +16,6 @@ webview {
 	flex: 1;
 }
 
-#title-bar {
-	-webkit-app-region: drag;
-	padding: 0.3em 0.7em;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	background-color: #f8f8f8;
-	color: #484848;
-	transition: color 0.5s, background-color 0.5s;
-}
-
-#title-bar.dark {
-	background-color: #333333;
-	color: white;
-}
-
-#title-bar .window-control {
-	float: right;
-	-webkit-app-region: no-drag;
-}
-
 navbar {
 	height: 23px;
 	align-items: center;
@@ -56,6 +35,7 @@ navbar {
 	justify-content: space-between;
 	-webkit-user-select: none;
 	user-select: none;
+  padding: 0 2px;
 }
 
 navbar.dark {
@@ -68,8 +48,16 @@ navbar.dark .control-buttons>*:hover {
 }
 
 #navbar-container .control-buttons {
-	flex: 1;
 	display: flex;
+}
+
+#navbar-container .control-buttons:nth-child(2) {
+  padding-left: 2em;
+  flex: 1;
+}
+
+#navbar-container .control-buttons:nth-child(3) {
+  font-size: 1.3em;
 }
 
 #navbar-container .control-buttons>* {

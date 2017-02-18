@@ -1,10 +1,11 @@
 const { ipcMain, ipcRenderer } = require('electron');
-const consumer = require('./ipc/consumer');
+const path = require('path');
+const os = require('os');
 
 const Menu = require('electron').Menu || require('electron').remote.Menu;
 const app = require('electron').app || require('electron').remote.app;
-const path = require('path') || require('electron').remote.require('path');
-const os = require('os') || require('electron').remote.require('os');
+
+const consumer = require('./ipc/consumer');
 
 const isMainProcess = typeof ipcMain !== 'undefined';
 

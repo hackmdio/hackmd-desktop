@@ -1,20 +1,26 @@
-const fs = require('electron').remote.require('fs');
-const os = require('electron').remote.require('os');
-const path = require('electron').remote.require('path');
-const {ipcRenderer} = require('electron');
-const {BrowserWindow} = require('electron').remote;
-const {clipboard} = require('electron');
+const { ipcRenderer, remote, clipboard } = require('electron');
+const { BrowserWindow } = remote;
+
+const fs = remote.require('fs');
+const os = remote.require('os');
+const path = remote.require('path');
+
+const ipcClient = require('./ipc/client');
+
+const menu = require('./menu');
 
 const SERVER_URL = 'https://hackmd.io';
 
-const isDarwin = os.platform() === 'darwin';
-
-const winOption = {
-	width: 1024,
-	height: 768
-}
+const isMac = os.platform() === 'darwin';
 
 onload = () => {
+	/* inject mac specific styles */
+	if (isMac) {
+		document.querySelector('navbar').style.paddingLeft = '75px';
+		document.querySelector('#navbar-container .control-buttons:nth-child(3)').style.display = 'none';
+		document.querySelector('#navbar-container .more-menu').style.display = 'none';
+	}
+
 	if (window.location.search !== '') {
 		targetURL = window.location.search.match(/\?target=([^?]+)/)[1];
 	} else {
@@ -63,6 +69,29 @@ onload = () => {
 			new Notification('URL copied', { title: 'URL copied', body: webview.getURL() });
 		}
 
+		document.querySelector('#navbar-container .more-menu').onclick = () => {
+			menu.popup(require('electron').remote.getCurrentWindow());
+		}
+
+		document.querySelector('#navbar-container .minimize-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			win.minimize();
+		}
+
+		document.querySelector('#navbar-container .toggle-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			if (win.isMaximized()) {
+				win.unmaximize();
+			} else {
+				win.maximize();
+			}
+		}
+
+		document.querySelector('#navbar-container .close-window').onclick = () => {
+			const win = BrowserWindow.getFocusedWindow();
+			win.close();
+		}
+
 		// webview.openDevTools();
 	});
 
@@ -73,10 +102,6 @@ onload = () => {
 
 	/* handle _target=blank pages */
 	webview.addEventListener('new-window', (event) => {
-		new BrowserWindow(
-			(isDarwin
-				? Object.assign({}, winOption, {titleBarStyle: 'hidden'})
-				: winOption)
-		).loadURL(`file://${path.join(__dirname, `index.html?target=${event.url}`)}`);
+		ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}` });
 	});
 }

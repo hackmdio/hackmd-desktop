@@ -5,6 +5,8 @@ const path = require('path');
 const menu = require('./menu');
 const { createWindow } = require('./window');
 
+require('./ipc/server');
+
 let mainWin;
 
 function initializeApp () {

@@ -1,0 +1,75 @@
+html,
+body {
+	margin: 0;
+	height: 100%;
+	background-color: #f8f8f8;
+	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+webview {
+	flex: 1;
+}
+
+navbar {
+	height: 23px;
+	align-items: center;
+	width: 100%;
+	display: flex;
+	-webkit-app-region: drag;
+	background-color: #f8f8f8;
+	color: #484848;
+	transition: color 0.5s, background-color 0.5s;
+}
+
+#navbar-container {
+	font-size: 0.9em;
+	font-family: "Courier New", Courier, monospace;
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+	-webkit-user-select: none;
+	user-select: none;
+  padding: 0 2px;
+}
+
+navbar.dark {
+	background-color: #333333;
+	color: white;
+}
+
+navbar.dark .control-buttons>*:hover {
+	color: white;
+}
+
+#navbar-container .control-buttons {
+	display: flex;
+}
+
+#navbar-container .control-buttons:nth-child(2) {
+  padding-left: 2em;
+  flex: 1;
+}
+
+#navbar-container .control-buttons:nth-child(3) {
+  font-size: 1.3em;
+}
+
+#navbar-container .control-buttons>* {
+	margin: 0 .3em;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-webkit-app-region: no-drag;
+	height: 23px;
+	display: flex;
+	align-items: center;
+}
+
+#navbar-container .control-buttons>*:hover {
+	color: #c1c1c1;
+}

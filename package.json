@@ -1,16 +1,17 @@
 {
   "name": "hackmd-desktop",
-  "productName": "HackMD Desktop",
-  "version": "0.0.1",
+  "productName": "HackMD",
+  "version": "0.0.2",
   "description": "HackMD desktop client",
   "main": "main.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
     "start": "cross-env NODE_ENV=production electron .",
     "dist": "build -mwl",
+    "dist:macos": "build -m",
     "dist:linux": "build --linux deb"
   },
-  "author": "Yukai Huang <yukaihuangtw@gmail.com> (https://yukaii.tw)",
+  "author": "HackMD (https://hackmd.io)",
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^3.1.4",

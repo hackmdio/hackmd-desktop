@@ -7,11 +7,11 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
     "start": "cross-env NODE_ENV=production electron .",
-    "dist": "build -mwl",
+    "dist": "build -mw --linux deb",
     "dist:macos": "build -m",
     "dist:linux": "build --linux deb"
   },
-  "author": "HackMD (https://hackmd.io)",
+  "author": "HackMD <hackmdio@gmail.com> (https://hackmd.io)",
   "license": "MIT",
   "devDependencies": {
     "cross-env": "^3.1.4",

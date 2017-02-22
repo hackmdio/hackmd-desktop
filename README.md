@@ -2,6 +2,8 @@
 
 An electron wrapped desktop client for HackMD :tada:
 
+[Download Here](https://github.com/hackmdio/hackmd-desktop/releases)
+
 ![editor](./docs/images/editor.png?)
 
 ## Tools

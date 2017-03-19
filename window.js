@@ -20,6 +20,13 @@ function createWindow (opts={}) {
 		win.loadURL(opts.url)
 	}
 
+	win.on('enter-full-screen', (event) => {
+		win.webContents.send('enter-full-screen');
+	})
+	win.on('leave-full-screen', (event) => {
+		win.webContents.send('leave-full-screen');
+	})
+
 	return win;
 }
 

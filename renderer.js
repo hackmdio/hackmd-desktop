@@ -102,6 +102,14 @@ onload = () => {
 		webview.loadURL(webview.getURL());
 	});
 
+	ipcRenderer.on('enter-full-screen', () => {
+		document.querySelector('navbar').style.display = 'none';
+	})
+
+	ipcRenderer.on('leave-full-screen', () => {
+		document.querySelector('navbar').style.display = 'inherit';
+	})
+
 	/* handle _target=blank pages */
 	webview.addEventListener('new-window', (event) => {
 		ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}` });

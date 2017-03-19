@@ -92,7 +92,9 @@ onload = () => {
 			win.close();
 		}
 
-		// webview.openDevTools();
+		if (process.env.NODE_ENV === 'development') {
+			webview.openDevTools();
+		}
 	});
 
 	/* handle ipc actions */

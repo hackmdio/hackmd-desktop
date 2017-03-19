@@ -18,3 +18,9 @@ function initializeApp () {
 app.on('ready', () => {
 	initializeApp();
 });
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})

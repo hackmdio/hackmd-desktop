@@ -9,11 +9,16 @@ module.exports = function(commandId, args={}) {
       createWindow(args);
       break;
     case 'refreshWindow':
-		  const win = BrowserWindow.getFocusedWindow();
-			win.webContents.send('web:refresh');
-      break;      
+		  BrowserWindow.getFocusedWindow().webContents.send('web:refresh');
+      break;
     case 'learnMore':
       shell.openExternal('https://hackmd.io');
+      break;
+		case 'goForward':
+		  BrowserWindow.getFocusedWindow().webContents.send('web:go-forward');
+      break;
+		case 'goBack':
+		  BrowserWindow.getFocusedWindow().webContents.send('web:go-back');
       break;
     default:
       break;

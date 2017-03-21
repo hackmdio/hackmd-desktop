@@ -69,6 +69,25 @@ const template = [
       }
     ]
   },
+	{
+		label: 'History',
+		submenu: [
+			{
+				label: 'Forward',
+				accelerator: 'CmdOrCtrl+]',
+				click () {
+					exec('goForward');
+				}
+			},
+			{
+				label: 'Back',
+				accelerator: 'CmdOrCtrl+[',
+				click () {
+					exec('goBack');
+				}
+			},
+		]
+	},
   {
     role: 'window',
     submenu: [
@@ -78,6 +97,9 @@ const template = [
       {
         role: 'close'
       },
+			{
+				type: 'separator'
+			},
 			{
 				label: 'Refresh',
 				accelerator: 'CmdOrCtrl+R',

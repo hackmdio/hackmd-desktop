@@ -102,6 +102,18 @@ onload = () => {
 		webview.loadURL(webview.getURL());
 	});
 
+	ipcRenderer.on('web:go-foward', (event) => {
+		if (webview.canGoForward()) {
+			webview.goForward();
+		}
+	})
+
+	ipcRenderer.on('web:go-back', (event) => {
+		if (webview.canGoBack()) {
+			webview.goBack();
+		}
+	})
+
 	ipcRenderer.on('enter-full-screen', () => {
 		document.querySelector('navbar').style.display = 'none';
 	})

@@ -72,7 +72,7 @@ const template = [
 				type: 'separator',
 			},
 			{
-				label: 'Config server url',
+				label: 'Customize HackMD server',
 				click () {
 					exec('configServerUrl');
 				}

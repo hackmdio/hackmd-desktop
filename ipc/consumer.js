@@ -20,6 +20,9 @@ module.exports = function(commandId, args={}) {
 		case 'goBack':
 		  BrowserWindow.getFocusedWindow().webContents.send('web:go-back');
       break;
+		case 'configServerUrl':
+		BrowserWindow.getFocusedWindow().webContents.send('config-serverurl');
+			break;
     default:
       break;
   }

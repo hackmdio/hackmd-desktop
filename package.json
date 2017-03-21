@@ -24,5 +24,8 @@
     "mac": {
       "category": "public.app-category.productivity"
     }
+  },
+  "dependencies": {
+    "jquery": "^3.2.1"
   }
 }

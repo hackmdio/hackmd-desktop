@@ -141,7 +141,7 @@ onload = () => {
 		// reset default
 		if (serverurl.length === 0) { serverurl = DEFAULT_SERVER_URL; }
 
-		const errors = validate({ serverurl }, { serverurl: {url: true}})
+		const errors = validate({ serverurl }, { serverurl: {url: { allowLocal: true }}});
 		if (!errors) {
 			config.set('serverurl', serverurl);
 			webview.loadURL(serverurl);

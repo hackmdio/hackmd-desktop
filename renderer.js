@@ -5,11 +5,16 @@ const fs = remote.require('fs');
 const os = remote.require('os');
 const path = remote.require('path');
 
+const Config = require('electron-config');
+const config = new Config();
+const validate = require('validate.js');
+
 const ipcClient = require('./ipc/client');
 
 const menu = require('./menu');
 
-const SERVER_URL = 'https://hackmd.io';
+const { DEFAULT_SERVER_URL } = require('./constants');
+const { getServerUrl } = require('./utils');
 
 const isMac = os.platform() === 'darwin';
 
@@ -21,10 +26,11 @@ onload = () => {
 		document.querySelector('#navbar-container .more-menu').style.display = 'none';
 	}
 
+	let targetURL;
 	if (window.location.search !== '') {
 		targetURL = window.location.search.match(/\?target=([^?]+)/)[1];
 	} else {
-		targetURL = SERVER_URL;
+		targetURL = getServerUrl();
 	}
 
 	document.body.innerHTML += `<webview src="${targetURL}" id="main-window" disablewebsecurity autosize="on" allowpopups allowfileaccessfromfiles></webview>`;
@@ -37,7 +43,7 @@ onload = () => {
 		document.querySelector('title').innerHTML = webview.getTitle();
 
 		// set dark theme if in home page
-		if (webview.getURL().split('?')[0].split('#')[0].match(/https:\/\/hackmd.io\/$/)) {
+		if (webview.getURL().split('?')[0].split('#')[0].match(/https?:\/\/hackmd.io\/$/)) {
 			document.querySelector('navbar').className = 'dark';
 		} else {
 			document.querySelector('navbar').className = '';
@@ -57,7 +63,7 @@ onload = () => {
 		};
 
 		document.querySelector('#navbar-container .home').onclick = () => {
-			webview.loadURL(SERVER_URL);
+			webview.loadURL(getServerUrl());
 		}
 
 		document.querySelector('#navbar-container .refresh').onclick = () => {
@@ -120,6 +126,30 @@ onload = () => {
 
 	ipcRenderer.on('leave-full-screen', () => {
 		document.querySelector('navbar').style.display = 'inherit';
+	})
+
+	ipcRenderer.on('config-serverurl', () => {
+		if (!getServerUrl().match(/https?:\/\/hackmd\.io/)) {
+			$('#serverurl-config-modal.modal input[type="text"]').val(getServerUrl());
+		}
+		$('#serverurl-config-modal.modal').modal();
+	})
+
+	$('#serverurl-config-modal.modal #submit-serverurl').click(function () {
+		let serverurl = $('#serverurl-config-modal.modal input[type="text"]').val();
+
+		// reset default
+		if (serverurl.length === 0) { serverurl = DEFAULT_SERVER_URL; }
+
+		const errors = validate({ serverurl }, { serverurl: {url: { allowLocal: true }}});
+		if (!errors) {
+			config.set('serverurl', serverurl);
+			webview.loadURL(serverurl);
+			$('#serverurl-config-modal.modal').modal('hide');
+		} else {
+			// show me some error
+			alert(errors.serverurl);
+		}
 	})
 
 	/* handle _target=blank pages */

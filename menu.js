@@ -6,6 +6,7 @@ const Menu = require('electron').Menu || require('electron').remote.Menu;
 const app = require('electron').app || require('electron').remote.app;
 
 const consumer = require('./ipc/consumer');
+const { getServerUrl } = require('./utils');
 
 const isMainProcess = typeof ipcMain !== 'undefined';
 
@@ -25,7 +26,7 @@ const template = [
 				label: 'New File',
 				accelerator: 'CmdOrCtrl+N',
 				click () {
-          exec('createWindow', {url: `file://${path.join(__dirname, 'index.html?target=https://hackmd.io/new')}`})
+          exec('createWindow', {url: `file://${path.join(__dirname, `index.html?target=${path.join(getServerUrl(), '/new')}`)}`})
 				}
 			},
 			{
@@ -66,7 +67,16 @@ const template = [
       },
       {
         role: 'selectall'
-      }
+      },
+			{
+				type: 'separator',
+			},
+			{
+				label: 'Customize HackMD server',
+				click () {
+					exec('configServerUrl');
+				}
+			}
     ]
   },
 	{

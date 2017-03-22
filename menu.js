@@ -1,43 +1,43 @@
-const { ipcMain, ipcRenderer } = require('electron');
-const path = require('path');
-const os = require('os');
+const { ipcMain, ipcRenderer } = require('electron')
+const path = require('path')
+const os = require('os')
 
-const Menu = require('electron').Menu || require('electron').remote.Menu;
-const app = require('electron').app || require('electron').remote.app;
+const Menu = require('electron').Menu || require('electron').remote.Menu
+const app = require('electron').app || require('electron').remote.app
 
-const consumer = require('./ipc/consumer');
-const { getServerUrl } = require('./utils');
+const consumer = require('./ipc/consumer')
+const { getServerUrl } = require('./utils')
 
-const isMainProcess = typeof ipcMain !== 'undefined';
+const isMainProcess = typeof ipcMain !== 'undefined'
 
-function exec(commandId, args={}) {
+function exec (commandId, args = {}) {
   if (isMainProcess) {
-    consumer(commandId, args);
+    consumer(commandId, args)
   } else {
-    ipcRenderer.send('main:command', { commandId, args });
+    ipcRenderer.send('main:command', { commandId, args })
   }
 }
 
 const template = [
-	{
-		label: 'File',
-		submenu: [
-			{
-				label: 'New File',
-				accelerator: 'CmdOrCtrl+N',
-				click () {
+  {
+    label: 'File',
+    submenu: [
+      {
+        label: 'New File',
+        accelerator: 'CmdOrCtrl+N',
+        click () {
           exec('createWindow', {url: `file://${path.join(__dirname, `index.html?target=${path.join(getServerUrl(), '/new')}`)}`})
-				}
-			},
-			{
-				label: 'New Window',
-				accelerator: 'CmdOrCtrl+Shift+N',
-				click () {
+        }
+      },
+      {
+        label: 'New Window',
+        accelerator: 'CmdOrCtrl+Shift+N',
+        click () {
           exec('createWindow', {url: `file://${path.join(__dirname, 'index.html')}`})
-				}
-			}
-		]
-	},
+        }
+      }
+    ]
+  },
   {
     label: 'Edit',
     submenu: [
@@ -68,36 +68,36 @@ const template = [
       {
         role: 'selectall'
       },
-			{
-				type: 'separator',
-			},
-			{
-				label: 'Customize HackMD server',
-				click () {
-					exec('configServerUrl');
-				}
-			}
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Customize HackMD server',
+        click () {
+          exec('configServerUrl')
+        }
+      }
     ]
   },
-	{
-		label: 'History',
-		submenu: [
-			{
-				label: 'Forward',
-				accelerator: 'CmdOrCtrl+]',
-				click () {
-					exec('goForward');
-				}
-			},
-			{
-				label: 'Back',
-				accelerator: 'CmdOrCtrl+[',
-				click () {
-					exec('goBack');
-				}
-			},
-		]
-	},
+  {
+    label: 'History',
+    submenu: [
+      {
+        label: 'Forward',
+        accelerator: 'CmdOrCtrl+]',
+        click () {
+          exec('goForward')
+        }
+      },
+      {
+        label: 'Back',
+        accelerator: 'CmdOrCtrl+[',
+        click () {
+          exec('goBack')
+        }
+      }
+    ]
+  },
   {
     role: 'window',
     submenu: [
@@ -107,25 +107,25 @@ const template = [
       {
         role: 'close'
       },
-			{
-				type: 'separator'
-			},
-			{
-				label: 'Refresh',
-				accelerator: 'CmdOrCtrl+R',
-				click () {
-          exec('refreshWindow');
-				}
-			},
-			{
-				type: 'separator'
-			},
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Refresh',
+        accelerator: 'CmdOrCtrl+R',
+        click () {
+          exec('refreshWindow')
+        }
+      },
+      {
+        type: 'separator'
+      },
       {
         role: 'togglefullscreen'
       },
       {
         role: 'toggledevtools'
-      },
+      }
     ]
   },
   {
@@ -134,7 +134,7 @@ const template = [
       {
         label: 'Learn More',
         click () {
-          exec('learnMore');
+          exec('learnMore')
         }
       }
     ]
@@ -194,4 +194,4 @@ if (os.platform() === 'darwin') {
   )
 }
 
-module.exports = Menu.buildFromTemplate(template);
+module.exports = Menu.buildFromTemplate(template)

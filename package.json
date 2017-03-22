@@ -9,7 +9,8 @@
     "start": "cross-env NODE_ENV=production electron .",
     "dist": "build -mw --linux deb",
     "dist:macos": "build -m",
-    "dist:linux": "build --linux deb"
+    "dist:linux": "build --linux deb",
+    "lint": "standard"
   },
   "author": "HackMD <hackmdio@gmail.com> (https://hackmd.io)",
   "license": "MIT",
@@ -17,13 +18,20 @@
     "cross-env": "^3.1.4",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
-    "electron-builder": "^11.4.4"
+    "electron-builder": "^11.4.4",
+    "standard": "^9.0.2"
   },
   "build": {
     "appId": "com.hackmd.desktop",
     "mac": {
       "category": "public.app-category.productivity"
     }
+  },
+  "standard": {
+    "globals": [
+      "$",
+      "Notification"
+    ]
   },
   "dependencies": {
     "electron-config": "^0.2.1",

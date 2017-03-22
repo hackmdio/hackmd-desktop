@@ -1,23 +1,19 @@
-const { app, BrowserWindow, Menu } = require('electron');
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const menu = require('./menu');
-const { createWindow } = require('./window');
+const { app, Menu } = require('electron')
+const path = require('path')
+const menu = require('./menu')
+const { createWindow } = require('./window')
 
-require('./ipc/server');
-
-let mainWin;
+require('./ipc/server')
 
 function initializeApp () {
-	Menu.setApplicationMenu(menu);
+  Menu.setApplicationMenu(menu)
 
-	mainWin = createWindow({url: `file://${path.join(__dirname, 'index.html')}`});
+  createWindow({url: `file://${path.join(__dirname, 'index.html')}`})
 }
 
 app.on('ready', () => {
-	initializeApp();
-});
+  initializeApp()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

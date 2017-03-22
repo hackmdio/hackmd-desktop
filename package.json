@@ -10,7 +10,8 @@
     "dist": "build -mw --linux deb",
     "dist:macos": "build -m",
     "dist:linux": "build --linux deb",
-    "lint": "standard"
+    "lint": "standard",
+    "test": "npm run lint"
   },
   "author": "HackMD <hackmdio@gmail.com> (https://hackmd.io)",
   "license": "MIT",

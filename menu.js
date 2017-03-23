@@ -1,4 +1,3 @@
-const { ipcMain, ipcRenderer } = require('electron')
 const path = require('path')
 const url = require('url')
 const os = require('os')
@@ -6,18 +5,8 @@ const os = require('os')
 const Menu = require('electron').Menu || require('electron').remote.Menu
 const app = require('electron').app || require('electron').remote.app
 
-const consumer = require('./ipc/consumer')
 const { getServerUrl } = require('./utils')
-
-const isMainProcess = typeof ipcMain !== 'undefined'
-
-function exec (commandId, args = {}) {
-  if (isMainProcess) {
-    consumer(commandId, args)
-  } else {
-    ipcRenderer.send('main:command', { commandId, args })
-  }
-}
+const exec = require('./ipc/exec')
 
 const template = [
   {

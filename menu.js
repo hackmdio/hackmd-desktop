@@ -1,5 +1,6 @@
 const { ipcMain, ipcRenderer } = require('electron')
 const path = require('path')
+const url = require('url')
 const os = require('os')
 
 const Menu = require('electron').Menu || require('electron').remote.Menu
@@ -26,7 +27,7 @@ const template = [
         label: 'New File',
         accelerator: 'CmdOrCtrl+N',
         click () {
-          exec('createWindow', {url: `file://${path.join(__dirname, `index.html?target=${path.join(getServerUrl(), '/new')}`)}`})
+          exec('createWindow', {url: `file://${path.join(__dirname, `index.html?target=${url.resolve(getServerUrl(), '/new')}`)}`})
         }
       },
       {

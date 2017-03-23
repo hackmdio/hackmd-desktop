@@ -47,6 +47,12 @@ const template = [
         role: 'copy'
       },
       {
+        label: 'Copy URL',
+        click () {
+          exec('copyUrl')
+        }
+      },
+      {
         role: 'paste'
       },
       {

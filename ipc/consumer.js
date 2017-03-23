@@ -1,6 +1,11 @@
 const {BrowserWindow, shell} = require('electron')
 
 const { createWindow } = require('../window')
+const { getServerUrl } = require('../utils')
+
+const url = require('url')
+const fetch = require('node-fetch')
+const semver = require('semver')
 
 module.exports = function (commandId, args = {}) {
   switch (commandId) {
@@ -22,6 +27,19 @@ module.exports = function (commandId, args = {}) {
     case 'configServerUrl':
       BrowserWindow.getFocusedWindow().webContents.send('config-serverurl')
       break
+    case 'checkVersion':
+      return fetch(url.resolve(getServerUrl(), '/status')).then(response => {
+        var browserWindows = BrowserWindow.getAllWindows()
+        if (!semver.satisfies(response.headers.get('HackMD-Version'), '>= 0.5.1')) {
+          browserWindows.forEach(browserWindow => {
+            browserWindow.send('unsupported-version')
+          })
+        } else {
+          browserWindows.forEach(browserWindow => {
+            browserWindow.send('supported-version')
+          })
+        }
+      }).catch(err => console.log(err))
     default:
       break
   }

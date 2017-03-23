@@ -47,6 +47,11 @@ navbar.dark .control-buttons>*:hover {
 	color: white;
 }
 
+navbar.unsupported {
+	background-color: #b90000 !important;
+	color: white;
+}
+
 #navbar-container .control-buttons {
 	display: flex;
 }

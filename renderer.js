@@ -43,9 +43,9 @@ window.onload = () => {
 
     // set dark theme if in home page
     if (webview.getURL().split('?')[0].split('#')[0].match(/https?:\/\/hackmd.io\/$/)) {
-      document.querySelector('navbar').className = 'dark'
+      $('navbar').addClass('dark')
     } else {
-      document.querySelector('navbar').className = ''
+      $('navbar').remove('dark')
     }
 
     /* bind control buttons event */
@@ -134,6 +134,13 @@ window.onload = () => {
     $('#serverurl-config-modal.modal').modal()
   })
 
+  ipcRenderer.on('unsupported-version', () => {
+    $('navbar').addClass('unsupported')
+  })
+
+  ipcRenderer.on('supported-version', () => {
+    $('navbar').removeClass('unsupported')
+  })
   $('#serverurl-config-modal.modal #submit-serverurl').click(function () {
     let serverurl = $('#serverurl-config-modal.modal input[type="text"]').val()
 
@@ -144,6 +151,7 @@ window.onload = () => {
     if (!errors) {
       config.set('serverurl', serverurl)
       webview.loadURL(serverurl)
+      ipcClient('checkVersion')
       $('#serverurl-config-modal.modal').modal('hide')
     } else {
       // show me some error
@@ -155,4 +163,6 @@ window.onload = () => {
   webview.addEventListener('new-window', (event) => {
     ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${event.url}`)}` })
   })
+
+  ipcClient('checkVersion')
 }

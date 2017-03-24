@@ -611,6 +611,13 @@ electron-macos-sign@~1.5.0:
     isbinaryfile "^3.0.2"
     plist "^2.0.1"
 
+electron-search-text@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/electron-search-text/-/electron-search-text-0.3.0.tgz#eff07aa9e95f9b3783a93197362c8be3788a3d3d"
+  dependencies:
+    eventemitter2 "^2.0.1"
+    lodash "^4.14.1"
+
 electron@^1.4.15:
   version "1.6.4"
   resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.4.tgz#ec8e5b5d8fe7dcc8fe8754beaca1eabc1d7163e9"
@@ -826,6 +833,10 @@ event-emitter@~0.3.5:
   dependencies:
     d "1"
     es5-ext "~0.10.14"
+
+eventemitter2@^2.0.1:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-2.2.2.tgz#407ea71c2020cd57538203ab7e7a6bdcfb7692d5"
 
 exit-hook@^1.0.0:
   version "1.1.1"
@@ -1426,7 +1437,7 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
-lodash@^4.0.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.14.1, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 

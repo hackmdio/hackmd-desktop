@@ -43,6 +43,9 @@ module.exports = function (commandId, args = {}) {
     case 'copyUrl':
       BrowserWindow.getFocusedWindow().webContents.send('copy-url')
       break
+    case 'toggleSearch':
+      BrowserWindow.getFocusedWindow().webContents.send('toggle-search')
+      break
     default:
       break
   }

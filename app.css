@@ -17,6 +17,7 @@ webview {
 }
 
 navbar {
+  z-index: 2;
 	height: 23px;
 	align-items: center;
 	width: 100%;
@@ -89,4 +90,38 @@ navbar.unsupported {
 
 #navbar-container .control-buttons > .pin-window.pinned {
   transform: rotate(0);
+}
+
+*:focus {
+    outline: none;
+}
+
+.electronSearchText-box {
+	font-family: "Courier New", Courier, monospace;
+  position: absolute;
+  top: -11px;
+  transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) .3s;
+  right: 20px;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+.electronSearchText-input {
+  box-sizing: border-box;
+  width: 220px;
+  padding: 5px;
+  font-size: 14px;
+  outline-width: 2px;
+}
+
+.electronSearchText-count {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  line-height: 33px;
+}
+
+.electronSearchText-visible {
+  transform: translateY(33px);
+  display: block;
 }

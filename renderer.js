@@ -7,6 +7,7 @@ const path = remote.require('path')
 const Config = require('electron-config')
 const config = new Config()
 const validate = require('validate.js')
+const ElectronSearchText = require('electron-search-text')
 
 const ipcClient = require('./ipc/client')
 
@@ -37,6 +38,10 @@ window.onload = () => {
   document.body.innerHTML += `<webview src="${targetURL}" id="main-window" disablewebsecurity autosize="on" allowpopups allowfileaccessfromfiles></webview>`
 
   const webview = document.getElementById('main-window')
+
+  const searcher = new ElectronSearchText({
+    target: '#main-window'
+  })
 
   function copyUrl () {
     clipboard.writeText(webview.getURL())
@@ -168,6 +173,10 @@ window.onload = () => {
 
   ipcRenderer.on('copy-url', () => {
     copyUrl()
+  })
+
+  ipcRenderer.on('toggle-search', function () {
+    searcher.emit('toggle')
   })
 
   $('#serverurl-config-modal.modal #submit-serverurl').click(function () {

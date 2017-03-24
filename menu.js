@@ -53,6 +53,19 @@ const template = [
         }
       },
       {
+        type: 'separator'
+      },
+      {
+        label: 'Search',
+        accelerator: 'CmdOrCtrl+F',
+        click () {
+          exec('toggleSearch')
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
         role: 'paste'
       },
       {

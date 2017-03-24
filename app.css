@@ -78,3 +78,15 @@ navbar.unsupported {
 #navbar-container .control-buttons>*:hover {
 	color: #c1c1c1;
 }
+
+#navbar-container .control-buttons > .pin-window {
+  margin-right: 5px;
+  font-size: 0.9em;
+  padding-bottom: 2px;
+  transform: rotate(-45deg);
+  transition: transform .5s;
+}
+
+#navbar-container .control-buttons > .pin-window.pinned {
+  transform: rotate(0);
+}

@@ -1,5 +1,5 @@
 const { ipcRenderer, remote, clipboard } = require('electron')
-const { BrowserWindow, Menu } = remote
+const { Menu } = remote
 
 const os = remote.require('os')
 const path = remote.require('path')
@@ -88,12 +88,12 @@ window.onload = () => {
     }
 
     document.querySelector('#navbar-container .minimize-window').onclick = () => {
-      const win = BrowserWindow.getFocusedWindow()
+      const win = remote.getCurrentWindow()
       win.minimize()
     }
 
     document.querySelector('#navbar-container .toggle-window').onclick = () => {
-      const win = BrowserWindow.getFocusedWindow()
+      const win = remote.getCurrentWindow()
       if (win.isMaximized()) {
         win.unmaximize()
       } else {
@@ -101,8 +101,19 @@ window.onload = () => {
       }
     }
 
+    $('#navbar-container .pin-window').click(function () {
+      const win = remote.getCurrentWindow()
+      if (win.isAlwaysOnTop()) {
+        win.setAlwaysOnTop(false)
+        $(this).removeClass('pinned')
+      } else {
+        win.setAlwaysOnTop(true)
+        $(this).addClass('pinned')
+      }
+    })
+
     document.querySelector('#navbar-container .close-window').onclick = () => {
-      const win = BrowserWindow.getFocusedWindow()
+      const win = remote.getCurrentWindow()
       win.close()
     }
 

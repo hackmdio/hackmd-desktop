@@ -1,5 +1,5 @@
 const { ipcRenderer, remote, clipboard } = require('electron')
-const { BrowserWindow } = remote
+const { BrowserWindow, Menu } = remote
 
 const os = remote.require('os')
 const path = remote.require('path')
@@ -22,7 +22,9 @@ window.onload = () => {
   if (isMac) {
     document.querySelector('navbar').style.paddingLeft = '75px'
     document.querySelector('#navbar-container .control-buttons:nth-child(3)').style.display = 'none'
-    document.querySelector('#navbar-container .more-menu').style.display = 'none'
+    if (process.env.NODE_ENV !== 'development') {
+      document.querySelector('#navbar-container .more-menu').style.display = 'none'
+    }
   }
 
   let targetURL
@@ -35,6 +37,18 @@ window.onload = () => {
   document.body.innerHTML += `<webview src="${targetURL}" id="main-window" disablewebsecurity autosize="on" allowpopups allowfileaccessfromfiles></webview>`
 
   const webview = document.getElementById('main-window')
+
+  function copyUrl () {
+    clipboard.writeText(webview.getURL())
+    new Notification('URL copied', { title: 'URL copied', body: webview.getURL() }) // eslint-disable-line no-new
+  }
+
+  const navbarMenu = Menu.buildFromTemplate([{
+    label: 'Copy URL',
+    click () {
+      copyUrl()
+    }
+  }])
 
   webview.addEventListener('dom-ready', function () {
     // set webview title
@@ -69,13 +83,8 @@ window.onload = () => {
       webview.loadURL(webview.getURL())
     }
 
-    document.querySelector('#navbar-container .title').onclick = () => {
-      clipboard.writeText(webview.getURL())
-      Notification('URL copied', { title: 'URL copied', body: webview.getURL() })
-    }
-
     document.querySelector('#navbar-container .more-menu').onclick = () => {
-      menu.popup(require('electron').remote.getCurrentWindow())
+      menu.popup(remote.getCurrentWindow())
     }
 
     document.querySelector('#navbar-container .minimize-window').onclick = () => {
@@ -96,6 +105,10 @@ window.onload = () => {
       const win = BrowserWindow.getFocusedWindow()
       win.close()
     }
+
+    document.querySelector('#navbar-container').addEventListener('contextmenu', () => {
+      navbarMenu.popup(remote.getCurrentWindow())
+    })
 
     if (process.env.NODE_ENV === 'development') {
       webview.openDevTools()
@@ -141,6 +154,11 @@ window.onload = () => {
   ipcRenderer.on('supported-version', () => {
     $('navbar').removeClass('unsupported')
   })
+
+  ipcRenderer.on('copy-url', () => {
+    copyUrl()
+  })
+
   $('#serverurl-config-modal.modal #submit-serverurl').click(function () {
     let serverurl = $('#serverurl-config-modal.modal input[type="text"]').val()
 

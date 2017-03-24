@@ -40,6 +40,9 @@ module.exports = function (commandId, args = {}) {
           })
         }
       }).catch(err => console.log(err))
+    case 'copyUrl':
+      BrowserWindow.getFocusedWindow().webContents.send('copy-url')
+      break
     default:
       break
   }

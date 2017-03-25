@@ -1,4 +1,4 @@
-const { app, Menu } = require('electron')
+const { app, Menu, BrowserWindow } = require('electron')
 const path = require('path')
 const menu = require('./menu')
 const { createWindow } = require('./window')
@@ -22,5 +22,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  initializeApp()
+  if (process.platform === 'darwin' && BrowserWindow.getAllWindows().length === 0) {
+    initializeApp()
+  }
 })

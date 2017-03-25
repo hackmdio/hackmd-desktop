@@ -163,6 +163,10 @@ window.onload = () => {
     $('#serverurl-config-modal.modal').modal()
   })
 
+  ipcRenderer.on('open-from-url', () => {
+    $('#open-from-url-modal.modal').modal()
+  })
+
   ipcRenderer.on('unsupported-version', () => {
     $('navbar').addClass('unsupported')
   })
@@ -194,6 +198,14 @@ window.onload = () => {
     } else {
       // show me some error
       window.alert(errors.serverurl)
+    }
+  })
+
+  $('#open-from-url-modal.modal #submit-file-url').click(function () {
+    let url = $('#open-from-url-modal.modal input[type="text"]').val()
+    if (url.length > 0) {
+      ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${url}`)}` })
+      $('#open-from-url-modal.modal').modal('hide')
     }
   })
 

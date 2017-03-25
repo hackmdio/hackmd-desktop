@@ -25,6 +25,13 @@ const template = [
         click () {
           exec('createWindow', {url: `file://${path.join(__dirname, 'index.html')}`})
         }
+      },
+      {
+        label: 'Open from url',
+        accelerator: 'CmdOrCtrl+O',
+        click () {
+          exec('openFromUrl')
+        }
       }
     ]
   },

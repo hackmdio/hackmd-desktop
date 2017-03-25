@@ -27,6 +27,9 @@ module.exports = function (commandId, args = {}) {
     case 'configServerUrl':
       BrowserWindow.getFocusedWindow().webContents.send('config-serverurl')
       break
+    case 'openFromUrl':
+      BrowserWindow.getFocusedWindow().webContents.send('open-from-url')
+      break
     case 'checkVersion':
       return fetch(url.resolve(getServerUrl(), '/status')).then(response => {
         var browserWindows = BrowserWindow.getAllWindows()

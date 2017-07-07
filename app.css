@@ -100,10 +100,11 @@ navbar.unsupported {
 	font-family: "Courier New", Courier, monospace;
   position: absolute;
   top: -11px;
-  transition: transform cubic-bezier(0.165, 0.84, 0.44, 1) .3s;
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .3s;
   right: 20px;
   box-sizing: border-box;
   height: 40px;
+  opacity: 0;
 }
 
 .electronSearchText-input {
@@ -124,4 +125,5 @@ navbar.unsupported {
 .electronSearchText-visible {
   transform: translateY(33px);
   display: block;
+  opacity: 1;
 }

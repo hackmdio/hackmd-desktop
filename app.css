@@ -105,6 +105,7 @@ navbar.unsupported {
   box-sizing: border-box;
   height: 40px;
   opacity: 0;
+  visibility: hidden;
 }
 
 .electronSearchText-input {
@@ -126,4 +127,5 @@ navbar.unsupported {
   transform: translateY(33px);
   display: block;
   opacity: 1;
+  visibility: visible;
 }

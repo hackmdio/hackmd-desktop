@@ -3,6 +3,7 @@ const { Menu } = remote
 
 const os = remote.require('os')
 const path = remote.require('path')
+const fs = remote.require('fs')
 
 const Config = require('electron-config')
 const config = new Config()
@@ -17,6 +18,8 @@ const { DEFAULT_SERVER_URL } = require('./constants')
 const { getServerUrl } = require('./utils')
 
 const isMac = os.platform() === 'darwin'
+
+const DARK_MODE_CSS = fs.readFileSync(path.join(__dirname, './dark-mode.css'), 'utf-8')
 
 window.onload = () => {
   /* inject mac specific styles */
@@ -128,6 +131,14 @@ window.onload = () => {
 
     if (process.env.NODE_ENV === 'development') {
       webview.openDevTools()
+    }
+
+    if (webview.getURL().match(/https:\/\/.*hackmd\.io\/.*/)) {
+      webview.executeJavaScript(`
+        const style = document.createElement('style')
+        style.innerHTML = \`${DARK_MODE_CSS}\`;
+        document.head.appendChild(style)
+      `)
     }
   })
 

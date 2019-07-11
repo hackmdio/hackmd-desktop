@@ -57,8 +57,8 @@ window.onload = () => {
 
   webview.addEventListener('dom-ready', function () {
     // set webview title
-    document.querySelector('#navbar-container .title').innerHTML = webview.getTitle()
-    document.querySelector('title').innerHTML = webview.getTitle()
+    document.querySelector('#navbar-container .title').innerText = webview.getTitle()
+    document.querySelector('title').innerText = webview.getTitle()
 
     // set dark theme if in home page
     if (webview.getURL().split('?')[0].split('#')[0].match(/https?:\/\/hackmd.io\/$/)) {

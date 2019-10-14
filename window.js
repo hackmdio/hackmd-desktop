@@ -13,7 +13,12 @@ const winOption = {
 
 function createWindow (opts = {}) {
   const win = new BrowserWindow(
-    Object.assign({}, winOption, {titleBarStyle: 'hidden'})
+    Object.assign({}, winOption, {
+      titleBarStyle: 'hidden',
+      webPreferences: {
+        contextisolation: true
+      }
+    })
   )
 
   if (opts.hasOwnProperty('url')) {

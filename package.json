@@ -7,9 +7,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development electron .",
     "start": "cross-env NODE_ENV=production electron .",
-    "dist": "build -mw --linux deb",
-    "dist:macos": "build -m",
-    "dist:linux": "build --linux deb",
+    "dist": "electron-builder -mw --linux deb",
+    "dist:macos": "electron-builder -m",
+    "dist:linux": "electron-builder --linux deb",
     "lint": "standard",
     "test": "npm run lint"
   },
@@ -19,7 +19,7 @@
     "cross-env": "^3.1.4",
     "devtron": "^1.4.0",
     "electron": "^4.2.2",
-    "electron-builder": "^11.4.4",
+    "electron-builder": "^21.2.0",
     "standard": "^9.0.2"
   },
   "build": {

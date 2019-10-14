@@ -1,4 +1,4 @@
-const { ipcRenderer, remote, clipboard } = require('electron')
+const { ipcRenderer, remote, clipboard, shell } = require('electron')
 const { Menu } = remote
 
 const os = remote.require('os')
@@ -35,7 +35,7 @@ window.onload = () => {
     targetURL = getServerUrl()
   }
 
-  document.body.innerHTML += `<webview src="${targetURL}" id="main-window" disablewebsecurity autosize="on" allowpopups allowfileaccessfromfiles></webview>`
+  document.body.innerHTML += `<webview src="${targetURL}" id="main-window" autosize="on" allowpopups allowfileaccessfromfiles></webview>`
 
   const webview = document.getElementById('main-window')
 
@@ -203,10 +203,18 @@ window.onload = () => {
 
   $('#open-from-url-modal.modal #submit-file-url').click(function () {
     let url = $('#open-from-url-modal.modal input[type="text"]').val()
-    if (url.length > 0) {
-      ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${url}`)}` })
-      $('#open-from-url-modal.modal').modal('hide')
+    const serverurl = getServerUrl()
+    if (url.length <= 0) {
+      return
     }
+
+    if (!url.match(serverurl)) {
+      shell.openExternal(url)
+    } else {
+      ipcClient('createWindow', { url: `file://${path.join(__dirname, `index.html?target=${url}`)}` })
+    }
+
+    $('#open-from-url-modal.modal').modal('hide')
   })
 
   /* handle _target=blank pages */

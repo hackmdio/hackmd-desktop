@@ -38,7 +38,7 @@
     "electron-config": "^0.2.1",
     "electron-search-text": "^0.3.0",
     "jquery": "^3.2.1",
-    "node-fetch": "^1.6.3",
+    "node-fetch": "^3.1.1",
     "semver": "^5.3.0",
     "validate.js": "^0.11.1"
   }
